@@ -3,6 +3,7 @@ public enum SharedAttachmentType: Int, Codable {
     case video
     case audio
     case file
+    case subject
 }
 
 open class SharedAttachment: Codable {

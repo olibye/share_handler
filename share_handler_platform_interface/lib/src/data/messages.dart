@@ -8,6 +8,7 @@ enum SharedAttachmentType {
   video,
   audio,
   file,
+  subject,
 }
 
 class SharedAttachment {

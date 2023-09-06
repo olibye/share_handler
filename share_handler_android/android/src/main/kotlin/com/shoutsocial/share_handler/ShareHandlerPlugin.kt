@@ -168,7 +168,18 @@ class ShareHandlerPlugin: FlutterPlugin, Messages.ShareHandlerApi, EventChannel.
         attachments = if (text == null) {
           attachmentsFromIntent(intent)
         } else {
-          null
+
+          var subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
+          if (subject != null) {
+            var subjectAttachment = Messages.SharedAttachment.Builder()
+              .setPath(subject)
+              .setType(Messages.SharedAttachmentType.subject)
+              .build()
+            listOf(subjectAttachment).mapNotNull { it }
+          } else {
+            null
+          }
+
         }
       }
       intent.action == Intent.ACTION_VIEW -> { // Opening URL
@@ -225,6 +236,7 @@ class ShareHandlerPlugin: FlutterPlugin, Messages.ShareHandlerApi, EventChannel.
       mimeType?.startsWith("image") == true -> Messages.SharedAttachmentType.image
       mimeType?.startsWith("video") == true -> Messages.SharedAttachmentType.video
       mimeType?.startsWith("audio") == true -> Messages.SharedAttachmentType.audio
+      mimeType?.startsWith("text") == true -> Messages.SharedAttachmentType.subject
       else -> Messages.SharedAttachmentType.file
     }
   }

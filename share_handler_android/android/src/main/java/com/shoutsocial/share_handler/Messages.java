@@ -26,7 +26,8 @@ public class Messages {
     image(0),
     video(1),
     audio(2),
-    file(3);
+    file(3),
+    subject(4);
 
     private int index;
     private SharedAttachmentType(final int index) {
